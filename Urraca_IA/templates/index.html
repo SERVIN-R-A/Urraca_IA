@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat con Urraca</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <h2>🤖 Urraca – IA Evolutiva Multilingüe</h2>
+        <select id="idioma">
+            <option value="es" selected>Español</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+        </select>
+        <div id="chatbox"></div>
+        <form id="formulario">
+            <input type="text" id="mensaje" autocomplete="off" placeholder="Escribe aquí...">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("formulario");
+        const mensaje = document.getElementById("mensaje");
+        const chatbox = document.getElementById("chatbox");
+        const idioma = document.getElementById("idioma");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const texto = mensaje.value;
+            if (texto.trim() === "") return;
+
+            chatbox.innerHTML += `<div class="yo">Tú: ${texto}</div>`;
+            mensaje.value = "";
+
+            const res = await fetch("/mensaje", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({mensaje: texto, idioma: idioma.value})
+            });
+            const datos = await res.json();
+            let raw = datos.respuesta;
+            let emocion = "neutra";
+            if (raw.includes("[estado:")) {
+                emocion = raw.split("[estado:")[1].split("]")[0];
+                raw = raw.replace(/\[estado:.*?\]/, "");
+            }
+            chatbox.innerHTML += `<div class="urraca ${emocion}">Urraca: ${raw}</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        });
+    </script>
+</body>
+</html>

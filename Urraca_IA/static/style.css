@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+.chat-container {
+    width: 500px;
+    background: #1f1f1f;
+    padding: 20px;
+    border-radius: 10px;
+}
+#chatbox {
+    height: 300px;
+    overflow-y: auto;
+    background: #2c2c2c;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.yo {
+    text-align: right;
+    margin: 5px 0;
+    color: #0f0;
+}
+.urraca {
+    text-align: left;
+    margin: 5px 0;
+    color: #0cf;
+}
+.urraca.feliz { background: #003300; padding: 5px; border-radius: 5px; }
+.urraca.triste { background: #330000; padding: 5px; border-radius: 5px; }
+.urraca.neutra { background: #1f1f1f; }
+input[type="text"] {
+    width: 75%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+button {
+    width: 20%;
+    padding: 10px;
+    background-color: #0f0;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+}
